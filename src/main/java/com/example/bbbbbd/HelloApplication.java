@@ -36,9 +36,21 @@ public class HelloApplication extends Application {
         /*
         тут меняю тип колонки (уже в другой таблице), чтобы добавлять картинки без проблем
          */
-        String sql="ALTER TABLE images MODIFY bytes longblob";
-        statement.executeUpdate(sql);
-        System.out.println("good");
+//        String sql="ALTER TABLE images MODIFY bytes longblob";
+//        statement.executeUpdate(sql);
+//        System.out.println("good");
+        /*
+        тут мы удаляли ненужные строки от прошлых модификаций#2
+         */
+        String sql="DELETE FROM products WHERE id<48";
+       int rows=statement.executeUpdate(sql);
+        System.out.println("delete " + rows);
+        sql="SELECT * FROM products";
+        ResultSet resultSet=statement.executeQuery(sql);
+        while (resultSet.next()){
+            String id = resultSet.getString("title");
+            System.out.println("---"+ id);
+        }
 
         statement.close();
         conn.close();
