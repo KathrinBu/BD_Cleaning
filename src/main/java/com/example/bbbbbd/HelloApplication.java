@@ -21,15 +21,24 @@ public class HelloApplication extends Application {
         Connection conn = DriverManager.getConnection(url, username, password);
         System.out.println("Connecting to a selected database...");
         Statement statement = conn.createStatement();
-        String sql="DELETE FROM products WHERE id>100";
-       int rows=statement.executeUpdate(sql);
-        System.out.println("delete " + rows);
-        sql="SELECT * FROM products";
-        ResultSet resultSet=statement.executeQuery(sql);
-        while (resultSet.next()){
-            String id = resultSet.getString("city");
-            System.out.println("---"+ id);
-        }
+        /*
+        тут мы удаляли ненужные строки от прошлых модификаций
+         */
+//        String sql="DELETE FROM products WHERE id>100";
+//       int rows=statement.executeUpdate(sql);
+//        System.out.println("delete " + rows);
+//        sql="SELECT * FROM products";
+//        ResultSet resultSet=statement.executeQuery(sql);
+//        while (resultSet.next()){
+//            String id = resultSet.getString("city");
+//            System.out.println("---"+ id);
+//        }
+        /*
+        тут меняю тип колонки (уже в другой таблице), чтобы добавлять картинки без проблем
+         */
+        String sql="ALTER TABLE images MODIFY bytes longblob";
+        statement.executeUpdate(sql);
+        System.out.println("good");
 
         statement.close();
         conn.close();
